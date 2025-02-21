@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoolSphere - Urban Heat Mitigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a; /* Dark background */
+            color: #ffffff;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            background: rgba(11, 11, 11, 0.8); /* Semi-transparent dark header */
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px); /* Glassmorphism effect */
+        }
+
+        .login-signup {
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Purple to blue gradient */
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-right: 20px;
+        }
+
+        .login-signup:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(106, 17, 203, 0.6); /* Neon glow */
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 200px 20px;
+            background: linear-gradient(to right, #0a0a0a, #111111);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin: 0;
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* Purple to blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #cccccc;
+            animation: slideUp 1.5s ease-in-out;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Purple to blue gradient */
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(106, 17, 203, 0.6); /* Neon glow */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: #111111;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #6a11cb; /* Purple */
+        }
+
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 15px;
+            width: 250px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Purple to blue gradient */
+            transform: rotate(45deg);
+            z-index: -1;
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            top: 0;
+            left: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.6); /* Neon glow */
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #6a11cb; /* Purple */
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #ffffff;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #cccccc;
+        }
+
+        /* Gamification Section */
+        .gamification {
+            padding: 100px 20px;
+            background: linear-gradient(to right, #0a0a0a, #111111);
+            text-align: center;
+        }
+
+        .gamification h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #6a11cb; /* Purple */
+        }
+
+        .progress-bar {
+            width: 60%;
+            height: 20px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Purple to blue gradient */
+            border-radius: 10px;
+            animation: progressAnimation 2s ease-in-out;
+        }
+
+        @keyframes progressAnimation {
+            from { width: 0%; }
+            to { width: 70%; }
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 20px;
+            background: #111111;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #6a11cb; /* Purple */
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+
+        .testimonial {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            width: 300px;
+            scroll-snap-align: start;
+        }
+
+        .testimonial p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #cccccc;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            background: #111111;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: #6a11cb; /* Purple */
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #2575fc; /* Blue */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <img src="https://via.placeholder.com/120x50?text=CoolSphere+Logo" alt="Logo">
+        CoolSphere - UHI Heat Map
+        <button class="login-signup" onclick="redirectToLogin()">Login / Signup</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>CoolSphere</h1>
+        <p>Visualize Urban Heat Islands. Take Action. Build a Cooler Future.</p>
+        <button class="cta-button" onclick="redirectToLogin()">Join the Movement</button>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Why CoolSphere?</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Heatmap Visualization</h3>
+                <p>Explore real-time heatmaps of urban areas.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>Crowdsourced Data</h3>
+                <p>Contribute to data collection with photos and surveys.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-seedling"></i>
+                <h3>Mitigation Strategies</h3>
+                <p>Get actionable solutions like tree planting and green roofs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gamification Section -->
+    <section class="gamification">
+        <h2>Earn Rewards, Make a Difference</h2>
+        <div class="gamification-content">
+            <div class="progress-bar">
+                <div class="progress" style="width: 70%;"></div>
+            </div>
+            <p>Complete challenges to earn points and badges!</p>
+            <button class="cta-button" onclick="redirectToLogin()">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What People Are Saying</h2>
+        <div class="testimonial-carousel">
+            <div class="testimonial">
+                <p>"CoolSphere helped our community identify heat hotspots and take action!"</p>
+                <p>- John Doe, Urban Planner</p>
+            </div>
+            <div class="testimonial">
+                <p>"The gamification features make it fun to contribute to a greener city."</p>
+                <p>- Jane Smith, Environmentalist</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>Urban Heat Island Map - Stay Cool, Stay Informed!</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function redirectToLogin() {
+            window.location.href = 'http://127.0.0.1:5500/loginuhi.html';
+        }
+    </script>
+</body>
+</html>

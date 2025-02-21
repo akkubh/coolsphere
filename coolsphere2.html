@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoolSphere - Urban Heat Mitigation</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff5733, #00b0f0); /* Orange-Red to Sky Blue */
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header */
+        header {
+            padding: 15px;
+            background: linear-gradient(to right, #ff5733, #00b0f0); /* Orange-Red to Sky Blue */
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+/* Login/Signup Button */
+.login-signup {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 2px solid white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-right: 20px;
+}
+
+.login-signup:hover {
+    background: white;
+    color: #d84315;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 70vh;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+
+        .half {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .half:hover {
+            transform: scale(1.03);
+        }
+
+        /* High Heat City (Left Side - Orange and Red) */
+        .high-heat {
+            background: linear-gradient(to bottom, #ff5733, #ff8c42); /* Orange and Red */
+        }
+
+        /* Low Heat Mitigation City (Right Side - Sky Blue) */
+        .low-heat {
+            background: linear-gradient(to bottom, #87ceeb, #00b0f0); /* Sky Blue */
+        }
+
+        .city-img {
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Search Bar */
+        #pac-input {
+            margin: 20px auto;
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #3a3a3a;
+            border-radius: 25px;
+            text-align: center;
+            background: white;
+            color: black;
+        }
+
+        /* Google Maps */
+        #map {
+            height: 500px; /* Increased height */
+            width: 90%; /* Increased width */
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            background: linear-gradient(to right, #ff5733, #00b0f0); /* Orange-Red to Sky Blue */
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header with Logo -->
+    <header>
+        <img src="https://via.placeholder.com/120x50?text=CoolSphere+Logo" alt="Logo">
+        CoolSphere - UHI Heat Map
+        <button class="login-signup" onclick="redirectToLogin()">Login / Signup</button>
+    </header>
+
+    <!-- Search Bar -->
+    <input id="pac-input" type="text" placeholder="Search for a place">
+
+    <!-- Split Screen -->
+    <div class="container">
+        <div class="half high-heat">
+            <h2>High Heat Intensity</h2>
+            <img class="city-img" src="https://via.placeholder.com/400x300/FF5733/FFFFFF?text=Hot+City" alt="High Heat City">
+        </div>
+        <div class="half low-heat">
+            <h2>Low Heat Mitigation</h2>
+            <img class="city-img" src="https://via.placeholder.com/400x300/87CEEB/FFFFFF?text=Cool+City" alt="Cool City">
+        </div>
+    </div>
+
+    <!-- Google Map -->
+    <div id="map"></div>
+
+    <!-- Footer -->
+    <footer>
+         Urban Heat Island Map - Stay Cool, Stay Informed!
+        </footer>
+    
+        <!-- Google Maps API -->
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=geometry,places&callback=initMap">
+        </script>
+    
+        <script>
+            let map;
+            let autocomplete;
+    
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 28.4744, lng: 77.5031 },
+                    zoom: 13,
+                    styles: [
+                        { featureType: "water", stylers: [{ color: "#4a4a4a" }] },
+                        { featureType: "landscape", stylers: [{ color: "#808080" }] },
+                        { featureType: "road", stylers: [{ visibility: "simplified" }] },
+                        { featureType: "poi", stylers: [{ color: "#707070" }] }
+                    ]
+                });
+    
+                const input = document.getElementById('pac-input');
+                autocomplete = new google.maps.places.Autocomplete(input);
+                autocomplete.bindTo('bounds', map);
+    
+                autocomplete.addListener('place_changed', () => {
+                    const place = autocomplete.getPlace();
+                    if (!place.geometry) return;
+                    map.setCenter(place.geometry.location);
+                map.setZoom(17);
+                new google.maps.Marker({ position: place.geometry.location, map: map });
+            });
+        }
+
+        function redirectToLogin() {
+            window.location.href = 'http://127.0.0.1:5500/loginuhi.html';
+        }
+    </script>
+
+</body>
+</html>    

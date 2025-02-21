@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UHI Hotspots</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #87CEEB, #fd19fd);
+            color: #ffffff;
+        }
+
+        /* Header styling */
+        header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to bottom, #a162ed, #ee115b);
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+          /* Logo styling */
+          header img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        /* Login/signup button styling */
+        .login-signup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .login-signup:hover {
+            background-color: #ffffff;
+            color: #6520f0;
+        }
+
+          /* Search input styling */
+          #pac-input {
+            margin: 20px auto;
+            display: block;
+            width: 320px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Map container styling */
+        #map {
+            height: 500px;
+            width: 90%;
+            margin: 0 auto;
+            border: 5px solid #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(to top, #6520f0, #6520f0);
+            color: white;
+            font-size: 1rem;
+        }
+
+        /* Info window styling */
+        .info-window {
+            font-size: 14px;
+            color: #ec1017;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with logo -->
+    <header>
+        <button class="login-signup" onclick="redirectToLogin()">Login / Signup</button>
+        <img src="https://via.placeholder.com/150x50?text=UHI+Logo" alt="">
+        CoolSphere
+    </header>
+
+    <!-- Search input and map -->
+    <input id="pac-input" type="text" placeholder="Search for a place">
+    <div id="map"></div>
+
+    <!-- Footer -->
+    <footer>
+         Urban Heat Island Map
+    </footer>
+
+    <!-- Load the Google Maps JavaScript API -->
+    <script async defer
+        src="https://maps.gomaps.pro/maps/api/js?key=AlzaSywuDrAs1QgphfwLo35_xXRIabZ1pAmZkLb&libraries=geometry,places&callback=initMap">
+    </script>
+
+<script>
+    let map;
+    let autocomplete;
+
+    function initMap() {
+        // Initialize the map centered in Greater Noida
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 28.4744, lng: 77.5031 },
+            zoom: 13,
+            styles: [
+                {
+                    featureType: "water",
+                    stylers: [{ color: "#76c7c0" }]
+                },
+                {
+                    featureType: "landscape",
+                    stylers: [{ color: "#f0f8e2" }]
+                },
+                {
+                    featureType: "road",
+                    stylers: [{ visibility: "simplified" }]
+                },
+                {
+                    featureType: "poi",
+                    stylers: [{ color: "#c8e6c9" }]
+                }
+            ]
+        });
+
+        const input = document.getElementById('pac-input');
+            autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    console.log("No details available for the input: '" + place.name + "'");
+                    return;
+                }
+
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+
+                new google.maps.Marker({
+                    position: place.geometry.location,
+                    map: map
+                });
+            });
+        }
+
+        // Redirect function for login/signup
+        function redirectToLogin() {
+            window.location.href = 'http://127.0.0.1:5500/loginuhi.html';  // Change this to the actual login/signup page
+        }
+    </script>
+</body>
+</html>
